@@ -1,0 +1,43 @@
+--- origsrc/rep-gtk-0.18.3/Makefile.in	2008-08-14 12:05:46.000000000 -0500
++++ src/rep-gtk-0.18.3/Makefile.in	2008-11-27 02:21:53.776938600 -0600
+@@ -35,10 +35,10 @@
+ CPPFLAGS=@CPPFLAGS@
+ CFLAGS=@CFLAGS@ @DEVELOPMENT_CFLAGS@
+ LDFLAGS=@LDFLAGS@
+-override CPPFLAGS += -DHAVE_CONFIG_H -I.
++override CPPFLAGS += -DHAVE_CONFIG_H -I. -I$(top_srcdir)
+ override CFLAGS += @GLIB_CFLAGS@ @GTK_CFLAGS@ @REP_CFLAGS@ @LIBGLADE_CFLAGS@ @GNOME_CFLAGS@ @GNOMEUI_CFLAGS@ @GNOME_CANVAS_CFLAGS@ @GDK_PIXBUF_CFLAGS@
+-REP_SGTK_LIBS=@GLIB_LIBS@ @LIBS@
+-REP_GTK_LIBS=@GTK_LIBS@ @LIBS@
++REP_SGTK_LIBS=@GLIB_LIBS@ @REP_LIBS@ @LIBS@
++REP_GTK_LIBS=@GTK_LIBS@ @REP_LIBS@ @LIBS@
+ REP_LIBGLADE_LIBS=@LIBGLADE_LIBS@ @LIBS@
+ REP_GNOMELIB_LIBS=@GNOME_LIBS@ @LIBS@
+ REP_GNOMEUI_LIBS=@GNOMEUI_LIBS@ @LIBS@
+@@ -62,7 +62,7 @@
+ gtk-2/types.la : $(SGTK_OBJS)
+ 	$(rep_DL_LD) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(REP_SGTK_LIBS)
+ 
+-gtk-2/gtk.la : $(OBJS)
++gtk-2/gtk.la : $(OBJS) gtk-2/types.la
+ 	$(rep_DL_LD) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(REP_GTK_LIBS)
+ 
+ gtk-2/libglade.la : $(LIBGLADE_OBJS)
+@@ -78,7 +78,7 @@
+ 	$(rep_DL_LD) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(REP_GNOME_CANVAS_LIBS)
+ 
+ %-glue.c : %.defs build-gtk.jlc
+-	rep build-gtk.jlc -f build-gtk-batch $< $@
++	rep $(top_srcdir)/build-gtk.jlc -f build-gtk-batch $< $@
+ 
+ build-gtk.jlc : build-gtk.jl
+ 	rep compiler -f compile-batch $<
+@@ -108,7 +108,7 @@
+ 	install -d $(DESTDIR)/@prefix@/lib/pkgconfig/
+ 	install -m644 rep-gtk.pc $(DESTDIR)/@prefix@/lib/pkgconfig/
+ 	install -d $(DESTDIR)/@prefix@/share/doc/rep-gtk-@version@/
+-	install -m755 examples/* $(DESTDIR)/@prefix@/share/doc/rep-gtk-@version@/
++	install -m755 $(top_srcdir)/examples/* $(DESTDIR)/@prefix@/share/doc/rep-gtk-@version@/
+ 
+ installdirs : $(top_srcdir)/mkinstalldirs
+ 	$(SHELL) $(top_srcdir)/mkinstalldirs $(DESTDIR)$(installdir)/gui/gtk-2

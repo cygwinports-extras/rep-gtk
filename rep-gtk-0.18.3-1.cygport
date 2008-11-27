@@ -1,0 +1,12 @@
+DESCRIPTION="GTK+ bindings for librep Lisp interpreter"
+HOMEPAGE="http://rep-gtk.sourceforge.net/"
+SRC_URI="mirror://sourceforge/rep-gtk/${P}.tar.bz2"
+PATCH_URI="
+	0.18.3-no-undefined-and-vpath.patch
+	0.18.3-examples.patch
+"
+
+NO_AUTOHEADER=1
+CYGCONF_ARGS="--without-libglade --without-gnome"
+
+DEPS_PATH="/usr/lib/rep/${CHOST}/gui/gtk-2"
