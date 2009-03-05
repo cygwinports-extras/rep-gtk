@@ -10,18 +10,18 @@ be explicitly loaded before gui.gtk-2.gtk.
 
 Runtime requirements:
   cygwin-1.5.25-15
-  atk-1.22.0-1
-  gdk-pixbuf2-2.12.12-1
-  glib2-2.16.6-1
-  gtk2-x11-2.12.12-1
-  librep9-0.17.2-1
+  libatk1.0_0-1.24.0-1
+  libgdk_pixbuf2.0_0-2.14.7-2
+  libglib2.0_0-2.18.4-1
+  libgtk2.0_0-2.14.7-2
+  librep9-0.17.3-1
 
 Build requirements:
 (besides corresponding -devel packages)
   autoconf2.5-2.63-1
   automake1.10-1.10.1-2
   binutils-20080624-2
-  cygport-0.4.2-1
+  cygport-0.4.3-1
   gawk-3.1.6-1
   gcc-core-3.4.4-3
   libtool-2.2.6a-1
@@ -38,15 +38,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack rep-gtk-0.18.3-X-src.tar.bz2
+  unpack rep-gtk-0.18.4-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./rep-gtk-0.18.3-X.cygport all
+  cygport ./rep-gtk-0.18.4-X.cygport all
 
 This will create:
-  /usr/src/rep-gtk-0.18.3-X-src.tar.bz2
-  /usr/src/rep-gtk-0.18.3-X.tar.bz2
+  /usr/src/rep-gtk-0.18.4-X-src.tar.bz2
+  /usr/src/rep-gtk-0.18.4-X.tar.bz2
 
 -------------------------------------------
 
@@ -57,32 +57,23 @@ Files included in the binary package:
   /usr/lib/rep/i686-pc-cygwin/gui/gtk-2/gtk.la
   /usr/lib/rep/i686-pc-cygwin/gui/gtk-2/types.dll
   /usr/lib/rep/i686-pc-cygwin/gui/gtk-2/types.la
-  /usr/share/doc/rep-gtk-0.18.3/AUTHORS
-  /usr/share/doc/rep-gtk-0.18.3/BUGS
-  /usr/share/doc/rep-gtk-0.18.3/COPYING
-  /usr/share/doc/rep-gtk-0.18.3/ChangeLog
-  /usr/share/doc/rep-gtk-0.18.3/HACKING
-  /usr/share/doc/rep-gtk-0.18.3/INSTALL
-  /usr/share/doc/rep-gtk-0.18.3/MAINTAINERS
-  /usr/share/doc/rep-gtk-0.18.3/NEWS
-  /usr/share/doc/rep-gtk-0.18.3/README
-  /usr/share/doc/rep-gtk-0.18.3/TODO
-  /usr/share/doc/rep-gtk-0.18.3/canvas-pixbuf-test
-  /usr/share/doc/rep-gtk-0.18.3/canvas-test
-  /usr/share/doc/rep-gtk-0.18.3/clist.jl
-  /usr/share/doc/rep-gtk-0.18.3/gnome-test
-  /usr/share/doc/rep-gtk-0.18.3/gtk-dialog.jl
-  /usr/share/doc/rep-gtk-0.18.3/hello.jl
-  /usr/share/doc/rep-gtk-0.18.3/rep-ui
-  /usr/share/doc/rep-gtk-0.18.3/rep-ui.glade
-  /usr/share/doc/rep-gtk-0.18.3/simple.glade
-  /usr/share/doc/rep-gtk-0.18.3/status-icon
-  /usr/share/doc/rep-gtk-0.18.3/test-libglade
-  /usr/share/doc/rep-gtk-0.18.3/text.jl
+  /usr/share/doc/rep-gtk-0.18.4/AUTHORS
+  /usr/share/doc/rep-gtk-0.18.4/BUGS
+  /usr/share/doc/rep-gtk-0.18.4/COPYING
+  /usr/share/doc/rep-gtk-0.18.4/ChangeLog
+  /usr/share/doc/rep-gtk-0.18.4/HACKING
+  /usr/share/doc/rep-gtk-0.18.4/INSTALL
+  /usr/share/doc/rep-gtk-0.18.4/MAINTAINERS
+  /usr/share/doc/rep-gtk-0.18.4/NEWS
+  /usr/share/doc/rep-gtk-0.18.4/README
+  /usr/share/doc/rep-gtk-0.18.4/TODO
 
 ------------------
 
 Port Notes:
+
+----- version 0.18.4-1 -----
+Version bump.
 
 ----- version 0.18.3-1 -----
 Initial release for Cygwin.
