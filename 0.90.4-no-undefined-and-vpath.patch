@@ -1,0 +1,69 @@
+--- origsrc/rep-gtk-0.90.4/Makefile.in	2010-09-24 14:19:37.000000000 -0500
++++ src/rep-gtk-0.90.4/Makefile.in	2011-02-07 00:34:27.348645300 -0600
+@@ -27,10 +27,10 @@ CC=@CC@
+ CPPFLAGS=@CPPFLAGS@
+ CFLAGS=@CFLAGS@ @DEVELOPMENT_CFLAGS@
+ LDFLAGS=@LDFLAGS@
+-override CPPFLAGS += -DHAVE_CONFIG_H -I.
++override CPPFLAGS += -DHAVE_CONFIG_H -I. -I$(top_srcdir)
+ override CFLAGS += @GLIB_CFLAGS@ @GTK_CFLAGS@ @REP_CFLAGS@ @GDK_PIXBUF_CFLAGS@
+-REP_SGTK_LIBS=@GLIB_LIBS@ @LIBS@
+-REP_GTK_LIBS=@GTK_LIBS@ @LIBS@
++REP_SGTK_LIBS=@GLIB_LIBS@ @REP_LIBS@ @LIBS@
++REP_GTK_LIBS=@GTK_LIBS@ @REP_LIBS@ @LIBS@
+ 
+ INSTALL=@INSTALL@
+ INSTALL_DATA=@INSTALL_DATA@
+@@ -51,11 +51,11 @@ all : build_dirs $(OUT)
+ gtk-2/types.la : $(SGTK_OBJS)
+ 	$(rep_DL_LD) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(REP_SGTK_LIBS)
+ 
+-gtk-2/gtk.la : $(OBJS)
++gtk-2/gtk.la : $(OBJS) gtk-2/types.la
+ 	$(rep_DL_LD) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(REP_GTK_LIBS)
+ 
+ %-glue.c : %.defs build-gtk.jlc
+-	LC_ALL=C rep build-gtk.jlc -f build-gtk-batch $< $@
++	LC_ALL=C rep $(top_srcdir)/build-gtk.jlc -f build-gtk-batch $< $@
+ 
+ .PRECIOUS:  %-glue.c
+ 
+@@ -78,7 +78,7 @@ install : all installdirs
+ 	  printf "\nrep_open_globally=yes\n" >>$(DESTDIR)$(installdir)/$$f; \
+ 	done
+ 	$(rep_INSTALL_ALIASES) -c . $(DESTDIR)$(installdir)
+-	install -m644 rep-gtk.h $(DESTDIR)$(includedir)/rep-gtk/
++	install -m644 $(top_srcdir)/rep-gtk.h $(DESTDIR)$(includedir)/rep-gtk/
+ 	install -d $(DESTDIR)$(libdir)/pkgconfig/
+ 	install -m644 rep-gtk.pc $(DESTDIR)$(libdir)/pkgconfig/
+ 
+--- origsrc/rep-gtk-0.90.4/configure.in	2010-09-24 14:19:37.000000000 -0500
++++ src/rep-gtk-0.90.4/configure.in	2011-02-07 00:05:14.736399600 -0600
+@@ -51,6 +51,7 @@ REP_MIN_VER="0.90.5"
+ PKG_CHECK_MODULES(LIBREP, librep >= $REP_MIN_VER
+ 		  ,REP_EXECDIR="`pkg-config --variable=repcommonexecdir librep`"
+ 		  REP_CFLAGS="`pkg-config --cflags librep`"
++		  REP_LIBS="`pkg-config --libs librep`"
+ 		  ,AC_MSG_ERROR([can not locate librep]))
+ 
+ dnl Check for glib
+@@ -92,6 +93,7 @@ AC_SUBST(DEVELOPMENT_CFLAGS)
+ AC_SUBST(LIBS)
+ AC_SUBST(REP_EXECDIR)
+ AC_SUBST(REP_CFLAGS)
++AC_SUBST(REP_LIBS)
+ AC_SUBST(REP_MIN_VER)
+ AC_SUBST(GTK_MIN_VER)
+ AC_SUBST(GLIB_MIN_VER)
+--- origsrc/rep-gtk-0.90.4/rep-gtk.c	2010-09-24 14:19:38.000000000 -0500
++++ src/rep-gtk-0.90.4/rep-gtk.c	2011-02-07 00:31:22.653329100 -0600
+@@ -1125,8 +1125,7 @@ sgtk_type_to_rep (GType t)
+ int
+ sgtk_valid_segment (repv obj)
+ {
+-  return scm_is_pair (obj)
+-    && sgtk_valid_point (rep_CAR (obj))
++  return sgtk_valid_point (rep_CAR (obj))
+     && sgtk_valid_point (rep_CDR (obj));
+ }
+ 

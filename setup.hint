@@ -1,5 +1,5 @@
 category: Gnome
-requires: atk glib2 gdk-pixbuf2 gtk2-x11 librep9
+requires: libatk1.0_0 libglib2.0_0 libgdk_pixbuf2.0_0 libgtk2.0_0 librep9
 sdesc: "GTK+ bindings for the librep Lisp interpreter"
 ldesc: "rep-gtk is a binding of the GTK+ libraries for the librep Lisp 
 environment. It's currently targeted at GTK+2 and is based on the 

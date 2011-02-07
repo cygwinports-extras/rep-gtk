@@ -1,0 +1,8 @@
+DESCRIPTION="GTK+ bindings for librep Lisp interpreter"
+HOMEPAGE="http://sawfish.wikia.com/wiki/Rep-GTK"
+SRC_URI="http://download.tuxfamily.org/sawfish/${PN}/${P}.tar.xz"
+PATCH_URI="0.90.4-no-undefined-and-vpath.patch"
+
+NO_AUTOHEADER=1
+
+DEPS_PATH="/usr/lib/rep/${CHOST}/gui/gtk-2"
