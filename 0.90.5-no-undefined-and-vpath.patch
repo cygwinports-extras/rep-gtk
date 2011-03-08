@@ -37,17 +37,17 @@
  	install -d $(DESTDIR)$(libdir)/pkgconfig/
  	install -m644 rep-gtk.pc $(DESTDIR)$(libdir)/pkgconfig/
  
---- origsrc/rep-gtk-0.90.4/configure.in	2010-09-24 14:19:37.000000000 -0500
-+++ src/rep-gtk-0.90.4/configure.in	2011-02-07 00:05:14.736399600 -0600
+--- origsrc/rep-gtk-0.90.5/configure.in
++++ src/rep-gtk-0.90.5/configure.in
 @@ -51,6 +51,7 @@ REP_MIN_VER="0.90.5"
  PKG_CHECK_MODULES(LIBREP, librep >= $REP_MIN_VER
  		  ,REP_EXECDIR="`pkg-config --variable=repcommonexecdir librep`"
  		  REP_CFLAGS="`pkg-config --cflags librep`"
 +		  REP_LIBS="`pkg-config --libs librep`"
- 		  ,AC_MSG_ERROR([can not locate librep]))
+ 		  ,AC_MSG_ERROR([can not locate librep >= $REP_MIN_VER]))
  
  dnl Check for glib
-@@ -92,6 +93,7 @@ AC_SUBST(DEVELOPMENT_CFLAGS)
+@@ -89,6 +90,7 @@ AC_SUBST(DEVELOPMENT_CFLAGS)
  AC_SUBST(LIBS)
  AC_SUBST(REP_EXECDIR)
  AC_SUBST(REP_CFLAGS)
